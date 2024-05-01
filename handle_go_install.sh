@@ -2,15 +2,17 @@
 
 ### Parameters
 # 1 - repository to build (URL/path in go get style, where the web https://github.com/<username>/<repo_name>.git has to be written github.com/<username>/<repo_name>
- 
+
 ### Preparation
 script_folder="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 
 ### Process
 go_version=$(go version)
-echo "[Compilation container] Info: $go_version"
-echo "[Compilation container] Executing go install $1";
-go install "$1" 
+uri=$1
+version=${2:-latest}
+echo "[Compilation container] Info: $go_version"
+echo "[Compilation container] Executing go install ${uri}@$version";
+go install "${uri}@$version"
 if [ $? -eq 0 ]; then
 	echo "[Compilation container] Success"
 	# Overwrite check
