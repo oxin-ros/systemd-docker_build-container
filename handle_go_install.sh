@@ -9,8 +9,8 @@ script_folder="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 ### Process
 go_version=$(go version)
 echo "[Compilation container] Info: $go_version"
-echo "[Compilation container] Executing go get $1";
-go get "$1" 
+echo "[Compilation container] Executing go install $1";
+go install "$1" 
 if [ $? -eq 0 ]; then
 	echo "[Compilation container] Success"
 	# Overwrite check
