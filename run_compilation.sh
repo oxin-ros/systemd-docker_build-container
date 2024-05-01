@@ -1,10 +1,11 @@
 #!/bin/bash
 
 ### Parameters
-go_get_repository_uri="github.com/dontsetse/systemd-docker"
+go_repository_uri="github.com/oxin-ros/systemd-docker"
+golang_docker_tag="latest"
 
 if [ ! -z "$1" ]; then
-	go_get_repository_uri="$1"
+	go_repository_uri="$1"
 fi
 
 ### Preparation
@@ -21,8 +22,8 @@ if [ -f "$script_folder/systemd-docker" ]; then
 fi
 
 ### Process
-docker run --mount type=bind,source="$script_folder",target=/compilation --rm -it golang:latest \
-       /bin/bash /compilation/handle_go_get.sh "$go_get_repository_uri"
+docker run --mount type=bind,source="$script_folder",target=/compilation --rm -it golang:${golang_docker_tag} \
+       /bin/bash /compilation/handle_go_install.sh ${go_repository_uri}
 
 docker_return=$?
 if [ $overwrite -eq 1 ]; then
